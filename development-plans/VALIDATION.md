@@ -77,3 +77,10 @@ Reports for this relocation are stored locally under `.packaging-build/rename-va
 Both installer workflows now expose build -> draft jobs. Drafts require exact clean-source provenance, complete checksums, licensing/credit and successful runtime evidence; uploads are checked against GitHub file digests/sizes. Pull requests never create drafts. Current CI does not commit code; its Git defaults name Faraz Hussain as author and github-actions[bot] as committer for any future workflow Git commit.
 
 Local validation passed **117 tests, zero skipped**, including twelve draft safety checks, on 27 October 2026. Ruff, formatting, actionlint, documentation links/casing, lock consistency and installed dependency compatibility passed before committing the pending modernization. Hosted delivery evidence is pending the first authorized push and will be recorded here after actual runs and attached assets are inspected. A draft is an unpublished academic preview, not a signed/public end-user release.
+
+
+### Initial hosted findings and corrective delivery
+
+The first delivery commit `7aec3df` ran on GitHub Actions. MSIX build/draft [40390000363](https://github.com/asteroidcrib729/serein-vault/actions/runs/40390000363) passed and produced an unpublished draft. Cross-platform validation [40390000218](https://github.com/asteroidcrib729/serein-vault/actions/runs/40390000218) exposed an intermittent Tk PNG icon initialization error on Windows and a Linux scroll-test fixture that did not overflow at the runner's font metrics. EXE build [40390000532](https://github.com/asteroidcrib729/serein-vault/actions/runs/40390000532) exposed a child Windows PowerShell module-path mismatch that hid Get-FileHash.
+
+Corrective changes use the native multi-resolution ICO loader on Windows, force actual overflow in the scroll-event test independently of font/display metrics, select PowerShell 7 where available (otherwise isolate Windows PowerShell's native modules), and compute bootstrap SHA-256 with .NET. Unexpected GUI errors still fail tests. Fresh hosted runs, including a new EXE install/draft, must pass before marking delivery complete.

@@ -1,3 +1,4 @@
+import sys
 import time
 from pathlib import Path
 
@@ -167,7 +168,11 @@ def test_multiple_tk_instances_own_their_images_and_form_state(app):
     second = VaultApp()
     try:
         second.withdraw()
-        assert second._icon.tk is second.tk
+        if second._icon is not None:
+            assert second._icon.tk is second.tk
+        else:
+            # Windows does not return its native default ICO through the bitmap getter.
+            assert sys.platform == "win32"
         for variable in (second.vault_path, second.mode, second.username_text, second.status):
             assert variable._tk is second.tk
         second.username_text.set("second.user")

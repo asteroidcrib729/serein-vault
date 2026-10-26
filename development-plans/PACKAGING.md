@@ -70,3 +70,6 @@ The draft uploader uses the runner's standard-library Python for release infrast
 No current workflow makes code commits. Any future workflow Git commit must use Faraz Hussain as author and github-actions[bot] as committer; those environment defaults are configured in every workflow. Draft release metadata/tag selection does not create a code commit. Public publication, production signing and certificate trust changes remain manual acceptance steps.
 
 [Academic readiness](ACADEMIC-READINESS.md) ? [GitHub release API](https://docs.github.com/en/rest/releases/releases#create-a-release)
+
+
+Hosted portability: the bootstrap prefers PowerShell 7 to match the runner. Its Windows PowerShell fallback uses a native module path, and SHA-256 verification uses .NET directly. This avoids inheriting incompatible PowerShell 7 module paths into a PowerShell 5 child. Signature/publisher verification remains mandatory. The Windows GUI uses the native ICO loader; other desktop platforms use a Tk-owned PNG image.

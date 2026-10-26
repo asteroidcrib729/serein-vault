@@ -8,7 +8,11 @@ if (Test-Path -LiteralPath $compiler) { Write-Output $compiler; exit 0 }
 $installer = Join-Path $toolRoot 'innosetup-7.1.0-x64.exe'
 Invoke-WebRequest -Uri 'https://github.com/jrsoftware/issrc/releases/download/is-7_1_0/innosetup-7.1.0-x64.exe' -OutFile $installer
 $expected = '0362a383ed217d4c4239b5933866dd96d3eb2102737da92f80f6057a4b40df2f'
-if ((Get-FileHash -LiteralPath $installer -Algorithm SHA256).Hash.ToLowerInvariant() -ne $expected) { throw 'Inno Setup checksum mismatch.' }
+$stream = [IO.File]::OpenRead($installer)
+$sha256 = [Security.Cryptography.SHA256]::Create()
+try { $actual = [BitConverter]::ToString($sha256.ComputeHash($stream)).Replace('-', '').ToLowerInvariant() }
+finally { $sha256.Dispose(); $stream.Dispose() }
+if ($actual -ne $expected) { throw 'Inno Setup checksum mismatch.' }
 $signature = Get-AuthenticodeSignature -LiteralPath $installer
 if ($signature.Status -ne 'Valid' -or $signature.SignerCertificate.Subject -notmatch 'Pyrsys B.V.') { throw 'Unexpected Inno Setup signature.' }
 $destination = Join-Path $toolRoot 'InnoSetup'

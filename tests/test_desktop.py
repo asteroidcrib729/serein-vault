@@ -1,5 +1,6 @@
 import time
 import tkinter as tk
+from tkinter import ttk
 from types import SimpleNamespace
 
 import pytest
@@ -16,10 +17,13 @@ def test_native_touchpad_and_small_wheel_deltas_scroll_forms(app):
     app.deiconify()
     app.update()
     canvas = app._scroll_canvas
-    canvas.configure(height=100)
-    # Long signup content exceeds the available form viewport on this real Tk window.
+    # Force real overflow independently of platform font metrics and display DPI.
+    form = canvas.nametowidget(canvas.itemcget(canvas.find_all()[0], "window"))
+    ttk.Label(form, text="Scroll fixture\n" * 40).pack(anchor="w")
+    app.update()
     canvas.yview_moveto(0)
     app.update()
+    assert canvas.bbox("all")[3] > canvas.winfo_height()
     entry = app.login_username
     assert app._scrolling.TAG in entry.bindtags()
     if not app._scrolling.precise:

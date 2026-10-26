@@ -235,8 +235,22 @@ def main():
         compiler = args.inno
         if compiler is None:
             tools_dir = ROOT / "packaged-releases" / ".tools"
+            # Match the hosted runner's PowerShell 7 module environment. A Windows
+            # PowerShell 5 child can inherit incompatible PSModulePath entries.
+            shell = shutil.which("pwsh.exe") or shutil.which("powershell.exe")
+            if shell is None:
+                raise RuntimeError("PowerShell is required for the verified Inno bootstrap.")
+            bootstrap_environment = os.environ.copy()
+            if Path(shell).name.lower() == "powershell.exe":
+                bootstrap_environment["PSModulePath"] = str(
+                    Path(os.environ["SYSTEMROOT"])
+                    / "System32"
+                    / "WindowsPowerShell"
+                    / "v1.0"
+                    / "Modules"
+                )
             run(
-                "powershell.exe",
+                shell,
                 "-NoProfile",
                 "-ExecutionPolicy",
                 "Bypass",
@@ -244,6 +258,7 @@ def main():
                 ROOT / "packaging" / "bootstrap-inno.ps1",
                 "-ToolsDirectory",
                 tools_dir,
+                env=bootstrap_environment,
             )
             compiler = tools_dir / "InnoSetup" / "ISCC.exe"
         run(

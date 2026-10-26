@@ -83,9 +83,14 @@ class VaultApp(tk.Tk):
         self._progress_updates = Queue(maxsize=1)
         self._scrolling = FormScrolling(self, self._touch)
         self._style()
-        icon = Path(__file__).parent / "assets" / "icon.png"
-        if icon.exists():
-            self._icon = tk.PhotoImage(master=self, file=icon)
+        assets = Path(__file__).parent / "assets"
+        self._icon = None
+        if sys.platform == "win32" and (assets / "SereinVault.ico").exists():
+            # Use Windows' native multi-resolution loader. Repeated Tk PNG decoder
+            # initialization can fail with an empty TclError on hosted Windows.
+            self.iconbitmap(default=str(assets / "SereinVault.ico"))
+        elif (assets / "icon.png").exists():
+            self._icon = tk.PhotoImage(master=self, file=assets / "icon.png")
             self.iconphoto(True, self._icon)
         self._container = ttk.Frame(self, padding=28)
         self._container.pack(fill="both", expand=True, padx=12, pady=12)
