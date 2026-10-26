@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Serein: sync environment",
+            "type": "process", "command": "uv",
+            "args": ["--cache-dir", ".uv-cache", "sync", "--locked", "--group", "packaging"],
+            "problemMatcher": []
+        },
+        {
+            "label": "Serein: tests",
+            "type": "process", "command": "uv",
+            "args": ["--cache-dir", ".uv-cache", "run", "--locked", "--group", "packaging", "pytest"],
+            "group": "test", "problemMatcher": []
+        },
+        {
+            "label": "Serein: build Windows installers",
+            "type": "process", "command": "uv",
+            "args": ["--cache-dir", ".uv-cache", "run", "--locked", "--group", "packaging", "python", "packaging/build_windows.py"],
+            "group": "build", "problemMatcher": []
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Serein Vault (.venv)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "serein_vault",
+            "python": "${workspaceFolder}/.venv/Scripts/python.exe",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "linux": {"python": "${workspaceFolder}/.venv/bin/python"},
+            "osx": {"python": "${workspaceFolder}/.venv/bin/python"}
+        }
+    ]
+}

@@ -1,0 +1,50 @@
+name: Windows EXE installer
+
+on:
+  workflow_dispatch:
+    inputs:
+      create_draft:
+        description: Create an unpublished draft after a successful build
+        type: boolean
+        default: true
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    paths: ['src/**', 'packaging/**', 'tests/**', 'pyproject.toml', 'uv.lock', '.github/workflows/**']
+
+permissions:
+  contents: read
+
+env:
+  GIT_AUTHOR_NAME: Faraz Hussain
+  GIT_AUTHOR_EMAIL: farazhussain5000@gmail.com
+  GIT_COMMITTER_NAME: github-actions[bot]
+  GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+
+jobs:
+  build:
+    uses: ./.github/workflows/windows-package.yml
+    with:
+      format: exe
+  draft:
+    needs: build
+    if: github.event_name != 'pull_request' && (github.event_name != 'workflow_dispatch' || inputs.create_draft)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: ${{ needs.build.outputs.artifact_name }}
+          path: packaged-releases/draft
+      - name: Verify and create unpublished draft
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ github.sha }}
+        run: python3 packaging/create_draft.py packaged-releases/draft --format exe --sha "$SOURCE_SHA"

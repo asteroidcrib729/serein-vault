@@ -1,0 +1,40 @@
+[project]
+name = "serein-vault"
+version = "1.2.0"
+description = "A Tkinter desktop vault with encrypted SQLite storage and recoverable file encryption."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "Faraz Hussain"}]
+requires-python = ">=3.14.7,<3.15"
+dependencies = ["cryptography>=50.0.2,<51"]
+
+[project.gui-scripts]
+serein-vault = "serein_vault.gui:main"
+
+[dependency-groups]
+dev = ["pytest>=9", "ruff>=0.14", "pip-audit>=2.9", "hatchling==1.32.4"]
+packaging = ["pyinstaller==6.22.3", "pillow>=12"]
+
+[build-system]
+requires = ["hatchling==1.32.4"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/serein_vault"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/tests", "/packaging", "/.github", "/.vscode", "/development-plans", "/README.md", "/LICENSE", "/AUTHORS.md", "/pyproject.toml", "/uv.lock", "/.python-version", "/main.py"]
+exclude = ["/legacy", "/.venv", "/.uv-cache", "/dist"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+target-version = "py314"
+line-length = 100
+exclude = ["legacy"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
