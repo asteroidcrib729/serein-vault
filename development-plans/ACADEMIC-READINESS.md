@@ -16,6 +16,8 @@ The original academic project has been repaired, improved, and modernized for ac
 - Dark Tkinter UI, DPI-aware rendering, precision scrolling, keyboard navigation, labels/search, byte progress, safe cancellation, and read-only health checks.
 - MIT licensing, original-author and academic acknowledgments, migration/security/dependency guides, regression tests, and source/installer packaging.
 
+Hosted Windows and Linux each passed all **117 tests without skips**, advisory audits and distribution builds. Hosted EXE/MSIX build -> draft jobs passed; the downloaded installers and every release asset were checked against provenance/checksums. [Exact run evidence](VALIDATION.md#verified-hosted-delivery) identifies the source commit and drafts.
+
 The validation record separates local test results from hosted jobs and hardware checks. Passing checks support the academic assessment; they do not prove the absence of every defect.
 
 ## Distribution and automation

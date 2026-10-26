@@ -45,7 +45,7 @@ The first sandboxed installer attempt was correctly rolled back after Windows de
 
 ## Explicit remaining boundaries
 
-- Hosted validation and build/draft workflows are configured; the delivery section below will record observed runs, assets and results after push.
+- Hosted Windows/Linux validation and EXE/MSIX build/draft jobs passed; exact inspected runs and assets appear below. This does not establish signing, Store acceptance or physical accessibility.
 - The EXE and MSIX are unsigned. MSIX extraction/startup does not test trusted Windows package installation, package identity, storage virtualization, updates, or uninstall.
 - No production certificate, trust-store change, Store certification or public release is claimed. Commit/push and unpublished drafts are authorized for the 27 October delivery.
 - The frozen/installed tests ran on the development machine. A separate machine without Python remains an acceptance step.
@@ -76,11 +76,28 @@ Reports for this relocation are stored locally under `.packaging-build/rename-va
 
 Both installer workflows now expose build -> draft jobs. Drafts require exact clean-source provenance, complete checksums, licensing/credit and successful runtime evidence; uploads are checked against GitHub file digests/sizes. Pull requests never create drafts. Current CI does not commit code; its Git defaults name Faraz Hussain as author and github-actions[bot] as committer for any future workflow Git commit.
 
-Local validation passed **117 tests, zero skipped**, including twelve draft safety checks, on 27 October 2026. Ruff, formatting, actionlint, documentation links/casing, lock consistency and installed dependency compatibility passed before committing the pending modernization. Hosted delivery evidence is pending the first authorized push and will be recorded here after actual runs and attached assets are inspected. A draft is an unpublished academic preview, not a signed/public end-user release.
+Local validation passed **117 tests, zero skipped**, including twelve draft safety checks, on 27 October 2026. Ruff, formatting, actionlint, documentation links/casing, lock consistency and installed dependency compatibility passed before committing the pending modernization. Hosted delivery is complete for the corrected implementation commit: Windows/Linux validation and EXE/MSIX build/draft jobs passed, and attached assets were downloaded and verified as recorded below. A draft is an unpublished academic preview, not a signed/public end-user release.
 
 
 ### Initial hosted findings and corrective delivery
 
 The first delivery commit `7aec3df` ran on GitHub Actions. MSIX build/draft [40390000363](https://github.com/asteroidcrib729/serein-vault/actions/runs/40390000363) passed and produced an unpublished draft. Cross-platform validation [40390000218](https://github.com/asteroidcrib729/serein-vault/actions/runs/40390000218) exposed an intermittent Tk PNG icon initialization error on Windows and a Linux scroll-test fixture that did not overflow at the runner's font metrics. EXE build [40390000532](https://github.com/asteroidcrib729/serein-vault/actions/runs/40390000532) exposed a child Windows PowerShell module-path mismatch that hid Get-FileHash.
 
-Corrective changes use the native multi-resolution ICO loader on Windows, force actual overflow in the scroll-event test independently of font/display metrics, select PowerShell 7 where available (otherwise isolate Windows PowerShell's native modules), and compute bootstrap SHA-256 with .NET. Unexpected GUI errors still fail tests. Fresh hosted runs, including a new EXE install/draft, must pass before marking delivery complete.
+Corrective changes use the native multi-resolution ICO loader on Windows, force actual overflow in the scroll-event test independently of font/display metrics, select PowerShell 7 where available (otherwise isolate Windows PowerShell's native modules), and compute bootstrap SHA-256 with .NET. Unexpected GUI errors still fail tests. Fresh corrected runs subsequently passed, including the EXE installation/uninstallation and both unpublished drafts; exact evidence follows.
+
+
+## Verified hosted delivery
+
+**Reviewed:** 27 October 2026 (Asia/Karachi). **Implementation source:** `40888656f3c34f62eec38bf20b03686d9fecae4c`. The following successful runs were inspected before committing this documentation update; subsequent documentation-only runs are additional checks rather than a claim that these artifacts came from a later commit.
+
+| Hosted check | Observed result | Evidence |
+| --- | --- | --- |
+| Windows and Linux validation | Both passed **117 tests, no skips**, Ruff, formatting, advisory audit and source/wheel builds | [Validate 40391098171](https://github.com/asteroidcrib729/serein-vault/actions/runs/40391098171) |
+| EXE build -> draft | Build, frozen smoke, per-user install, installed GUI/backend, uninstall/data preservation, checksums, artifact upload and draft all passed | [EXE 40391098252](https://github.com/asteroidcrib729/serein-vault/actions/runs/40391098252) |
+| MSIX build -> draft | Schema, all payload block hashes, frozen/extracted-runtime smoke, checksums, artifact upload and draft all passed | [MSIX 40391098305](https://github.com/asteroidcrib729/serein-vault/actions/runs/40391098305) |
+| EXE draft | Unpublished, source-pinned, 9 assets; every downloaded asset matched its GitHub SHA-256 digest and size | [Review EXE draft](https://github.com/asteroidcrib729/serein-vault/releases/tag/untagged-7d0f0a69b32709bae72d) |
+| MSIX draft | Unpublished, source-pinned, 8 assets; every downloaded asset matched its GitHub SHA-256 digest and size | [Review MSIX draft](https://github.com/asteroidcrib729/serein-vault/releases/tag/untagged-4a66a27110ab05c19990) |
+
+Both source provenance files identify that exact implementation SHA, `dirty_worktree=false`, the expected format, Python 3.14.7, and the matching installer digest. All required smoke reports passed. Local copies are under `packaged-releases/ci-40888656f3c3/exe/` and `packaged-releases/ci-40888656f3c3/msix/`; they remain Git-ignored. The EXE digest/install evidence and MSIX block map were independently rechecked after downloading the hosted artifacts.
+
+Git author/committer defaults were visible in hosted logs: Faraz Hussain as author, github-actions[bot] as committer. No workflow creates code commits; the authorized local delivery commits retain the configured developer identity. No public release, certificate trust change or signing is implied by these successful unpublished drafts. Signing/trusted MSIX installation and physical/independent-machine acceptance remain open.

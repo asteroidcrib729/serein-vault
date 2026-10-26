@@ -29,3 +29,6 @@ I chose complete-image encryption around standard-library SQLite rather than int
 Verified versions are `cryptography 50.0.2`, `pytest 9.1.1`, `ruff 0.17.2`, `pip-audit 2.10.1`, and `hatchling 1.32.4`. The exact build backend is also included in the development group so advisory checks cover it. uv manages the interpreter, environment, lockfile, runs, and build. Tk/Tcl and SQLite versions come from the Python distribution, not PyPI; the local Python 3.14.7 installation provides Tk 9.0 and SQLite 3.50.4.
 
 Audit sources: [cryptography PyPI metadata](https://pypi.org/pypi/cryptography/json), [pyperclip PyPI metadata](https://pypi.org/pypi/pyperclip/json), [PyCA password KDF guidance](https://cryptography.io/en/latest/hazmat/primitives/key-derivation-functions/), [Python SQLite documentation](https://docs.python.org/3.14/library/sqlite3.html), [uv projects](https://docs.astral.sh/uv/guides/projects/).
+
+
+Hosted delivery audit, **27 October 2026**: Windows and Linux validation both reported no known vulnerabilities; installer builds also ran their locked packaging-group audits successfully. See [verified hosted delivery](VALIDATION.md#verified-hosted-delivery). These are dated advisory results, not an independent application security audit.

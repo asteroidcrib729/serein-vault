@@ -2,7 +2,7 @@
 
 **A simple, dark-mode desktop app for protecting files and personal messages.**
 
-**Academic status:** repaired, improved, modernized, and locally validated for academic demonstration and review. [Readiness assessment](development-plans/ACADEMIC-READINESS.md) records completed scope and remaining acceptance checks.
+**Academic status:** repaired, improved, modernized, and validated locally plus in hosted Windows/Linux CI for academic demonstration and review. [Readiness assessment](development-plans/ACADEMIC-READINESS.md) records completed scope and remaining acceptance checks.
 
 I rebuilt my original **EncryptZone** academic project as Serein Vault. My goal is to keep the code understandable enough to study while fixing the original key-storage and data-loss problems. I use Python, Tkinter, SQLite, uv, and one runtime dependency: PyCA `cryptography`.
 
@@ -293,7 +293,7 @@ The current local suite passes **117 tests with no skips**, including twelve dra
 
 Ruff, lock checks, workflow linting, isolated-wheel runtime checks, frozen/installed probes, and the installed-dependency advisory audit also passed locally. The audit reported no known vulnerabilities in the current 47 third-party distributions. Build checks verify source/artifact hashes, binary origins, upstream licensing, and absence of personal/legacy data from current distributions.
 
-GitHub Actions is configured for Windows and Linux; local results do not imply a hosted run occurred. Monthly dependency review is configured with Dependabot. Read [validation](development-plans/VALIDATION.md) for the exact evidence and remaining release/accessibility limits, and [the dependency audit](development-plans/DEPENDENCIES.md) for compatibility choices.
+Hosted Windows and Linux validation both passed all 117 tests, audits and builds. EXE/MSIX build and draft jobs also passed, and their downloaded artifacts/release assets were verified against source provenance and SHA-256 checksums. Monthly dependency review is configured with Dependabot. Read [validation](development-plans/VALIDATION.md) for the exact evidence and remaining release/accessibility limits, and [the dependency audit](development-plans/DEPENDENCIES.md) for compatibility choices.
 
 ## Development plans
 

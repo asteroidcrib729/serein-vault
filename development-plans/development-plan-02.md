@@ -1,7 +1,7 @@
 # Development Plan 02 — Implemented Improvements and Remaining Checks
 
 **Project:** Serein Vault · **Current version:** 1.2.0 · **Updated:** 27 October 2026<br>
-**Status:** academically validated for local demonstration/review. Bounded usability, maintenance, and installer work is implemented; unpublished draft delivery and hosted verification are now authorized. Unchecked acceptance items remain explicit.
+**Status:** academically validated for local demonstration/review. Bounded usability, maintenance, and installer work is implemented; unpublished draft delivery and hosted verification are complete for the inspected implementation. Unchecked acceptance items remain explicit.
 
 [README](../README.md) · [Completed work](development-plan-01.md) · [Validation](VALIDATION.md) · [Windows packaging](PACKAGING.md)
 
@@ -23,7 +23,7 @@
 - [ ] Complete a separate human keyboard-only walkthrough and physical two-finger touchpad check. Synthetic events verify the Tk event path, not the specific touchpad driver.
 - [ ] Test NVDA/screen-reader announcements and focus feedback. NVDA was not available in this environment; do not claim certified support.
 - [ ] Verify physical monitor changes and mixed-DPI monitor movement. Simulated Tk scaling does not replace these hardware checks.
-- [ ] Complete the authorized Git delivery and inspect hosted Windows/Linux CI, installer artifacts and unpublished drafts; record actual run URLs/results in validation.
+- [x] Complete authorized Git delivery and inspect successful hosted Windows/Linux CI, EXE/MSIX installers and unpublished drafts; actual run URLs/results and downloaded asset checks are in [validation](VALIDATION.md#verified-hosted-delivery).
 
 ## Section 03 — Small Usability Features
 

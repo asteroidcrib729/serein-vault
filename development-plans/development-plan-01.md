@@ -172,4 +172,4 @@ See the root-rename section of [validation](VALIDATION.md) for the exact repair 
 - [x] Require clean exact-source provenance, checksums and successful smoke/install evidence before creating unpublished drafts; verify uploaded file digests/sizes.
 - [x] Configure Faraz Hussain as workflow Git author and github-actions[bot] as committer. Current workflows do not create code commits.
 - [x] Align Git remote and installer links with the existing canonical GitHub repository name serein-vault.
-- [ ] Commit/push the complete pending modernization and inspect hosted Windows/Linux validation, installer artifacts and draft releases. Completion evidence belongs in [validation](VALIDATION.md).
+- [x] Commit/push the complete pending modernization and inspect successful hosted Windows/Linux validation, installer artifacts and unpublished EXE/MSIX drafts. Exact source/run/asset evidence is recorded in [validation](VALIDATION.md#verified-hosted-delivery).

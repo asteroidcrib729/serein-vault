@@ -52,7 +52,7 @@ Signing and a trusted MSIX installation are still required before treating it as
 - [Shared builder](../.github/workflows/windows-package.yml): Windows 2025 runner, pinned actions and uv, Python 3.14.7, locked dependencies, lint/format/tests/advisory audit, package build, EXE installation check when applicable, final checksum/MSIX verification, and artifact upload.
 - [Validation workflow](../.github/workflows/ci.yml): Windows plus Linux with an Xvfb Tk display.
 
-Build the checked-out source; no version string is treated as a Git ref. Local provenance records dirty trees explicitly. CI drafts require a clean tree and the exact built Git SHA. Per-commit hosted results and artifact/draft links are reported in GitHub Actions; the validation record distinguishes completed results from pending checks.
+Build the checked-out source; no version string is treated as a Git ref. Local provenance records dirty trees explicitly. CI drafts require a clean tree and the exact built Git SHA. Hosted Windows/Linux validation and both installer build/draft workflows have passed. Per-commit results and artifact/draft links are reported in GitHub Actions; [verified hosted delivery](VALIDATION.md#verified-hosted-delivery) records the inspected source, jobs, assets and unsigned boundary.
 
 References: [PyInstaller requirements](https://pyinstaller.org/en/stable/requirements.html), [MakeAppx](https://learn.microsoft.com/en-us/windows/msix/package/create-app-package-with-makeappx-tool), [Windows DPI awareness](https://learn.microsoft.com/en-us/windows/win32/hidpi/setting-the-default-dpi-awareness-for-a-process), [Tk precision scroll events](https://www.tcl-lang.org/man/tcl9.0/TkCmd/bind.html).
 
